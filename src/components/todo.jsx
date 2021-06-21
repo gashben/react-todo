@@ -5,10 +5,11 @@ class Todo extends React.Component {
   constructor(props) {
     super(props);
 
-    const { handleValues } = this.props;
     this.onFinish = (values) => {
+      const { handleValues } = this.props;
       this.ref.current.resetFields();
       handleValues(values);
+      console.log('hello word', { ...values });
     };
     this.ref = React.createRef();
   }

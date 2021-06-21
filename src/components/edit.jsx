@@ -8,18 +8,22 @@ class Edit extends React.Component {
     super(props);
 
     // Edit
-    const {
-      isModalVisible, item, handleUpdate, handleCancel,
-    } = this.props;
+
     this.refModal = React.createRef();
 
     this.componentDidUpdate = () => {
+      const {
+        isModalVisible, item,
+      } = this.props;
       if (isModalVisible && item && item.id) {
         this.refModal.current.setFieldsValue({ ...item });
       }
     };
 
     this.onFinish = (values) => {
+      const {
+        handleUpdate, handleCancel,
+      } = this.props;
       handleUpdate(values);
       handleCancel();
     };

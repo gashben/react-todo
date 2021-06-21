@@ -10,36 +10,15 @@ class TodoList extends React.Component {
     super(props);
 
     this.state = {
-      // isChecked: false,
       item: {},
       isModalVisible: false,
     };
-    const { handleDelete } = this.props;
 
     // delete
+
     this.deleteMe = (index) => {
+      const { handleDelete } = this.props;
       handleDelete(index);
-    };
-
-    // complete
-    const { handleUpdate } = this.props;
-    this.handleComplete = (item) => {
-      const newItem = {
-        ...item,
-        isChecked: !item.isChecked,
-      };
-      handleUpdate(newItem);
-      this.setState({ item: newItem });
-    };
-
-    // edit
-
-    this.editModal = (item) => {
-      this.setState({ isModalVisible: true, item: { ...item } });
-    };
-
-    this.handleCancel = () => {
-      this.setState({ isModalVisible: false });
     };
 
     this.confirm = (e) => {
@@ -50,6 +29,28 @@ class TodoList extends React.Component {
     this.cancel = (e) => {
       console.log(e);
       message.error('Click on No');
+    };
+
+    // complete
+
+    this.handleComplete = (item) => {
+      const { handleUpdate } = this.props;
+      const newItem = {
+        ...item,
+        isChecked: !item.isChecked,
+      };
+      handleUpdate(newItem);
+      this.setState({ item: newItem });
+      console.log('check', item);
+    };
+
+    // edit
+    this.editModal = (item) => {
+      this.setState({ isModalVisible: true, item: { ...item } });
+    };
+
+    this.handleCancel = () => {
+      this.setState({ isModalVisible: false });
     };
   }
 
@@ -66,7 +67,7 @@ class TodoList extends React.Component {
               {itemm.title}
               <div style={{ float: 'right' }}>
                 <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => this.editModal(itemm)} />
-                <Button type="primary" shape="circle" icon={<CheckOutlined />} style={itemm.isChecked ? { background: 'green', margin: '0px 10px' } : { background: ' primary', margin: '0px 10px' }} onClick={() => this.handleComplete(itemm)} />
+                <Button type="primary" shape="circle" icon={<CheckOutlined />} style={itemm.isChecked ? { background: 'green', margin: '0px 10px' } : { background: ' gray', margin: '0px 10px' }} onClick={() => this.handleComplete(itemm)} />
                 <Popconfirm
                   title="Are you sure to delete this task?"
                   onConfirm={window.confirm}

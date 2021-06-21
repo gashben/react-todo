@@ -11,8 +11,9 @@ class App extends React.Component {
     this.state = {
       myList: [],
     };
-    const { myList } = this.state;
+
     this.handleValues = (values) => {
+      const { myList } = this.state;
       this.setState({
         myList: [{
           ...values,
@@ -24,6 +25,7 @@ class App extends React.Component {
     };
 
     this.handleUpdate = (item) => {
+      const { myList } = this.state;
       const lastResulte = [...myList].map((object) => {
         if (object.id === item.id) {
           return item;
@@ -35,6 +37,7 @@ class App extends React.Component {
 
     // delete
     this.handleDelete = (index) => {
+      const { myList } = this.state;
       myList.splice(index, 1);
       this.setState({ myList });
     };
