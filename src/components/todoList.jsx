@@ -21,9 +21,8 @@ class TodoList extends React.Component {
       handleDelete(index);
     };
 
-    this.confirm = (index) => {
-      this.deleteMe(index);
-
+    this.confirm = (e) => {
+      console.log(e);
       message.success('Click on Yes');
     };
 
@@ -42,7 +41,6 @@ class TodoList extends React.Component {
       };
       handleUpdate(newItem);
       this.setState({ item: newItem });
-      console.log('check', item);
     };
 
     // edit
@@ -71,12 +69,12 @@ class TodoList extends React.Component {
                 <Button type="primary" shape="circle" icon={<CheckOutlined />} style={itemm.isChecked ? { background: 'green', margin: '0px 10px' } : { background: ' #1890ff', margin: '0px 10px' }} onClick={() => this.handleComplete(itemm)} />
                 <Popconfirm
                   title="Are you sure to delete this task?"
-                  onConfirm={this.confirm}
+                  onConfirm={() => this.deleteMe(index)}
                   onCancel={this.cancel}
                   okText="Yes"
                   cancelText="No"
                 >
-                  <Button href="#" type="primary" shape="circle" icon={<DeleteOutlined />} onClick={() => this.deleteMe(index)} />
+                  <Button href="#" type="primary" shape="circle" icon={<DeleteOutlined />} />
                 </Popconfirm>
 
               </div>

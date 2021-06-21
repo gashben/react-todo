@@ -9,7 +9,6 @@ class Todo extends React.Component {
       const { handleValues } = this.props;
       this.ref.current.resetFields();
       handleValues(values);
-      console.log('hello word', { ...values });
     };
     this.ref = React.createRef();
   }
