@@ -21,8 +21,9 @@ class TodoList extends React.Component {
       handleDelete(index);
     };
 
-    this.confirm = (e) => {
-      console.log(e);
+    this.confirm = (index) => {
+      this.deleteMe(index);
+
       message.success('Click on Yes');
     };
 
@@ -67,11 +68,11 @@ class TodoList extends React.Component {
               {itemm.title}
               <div style={{ float: 'right' }}>
                 <Button type="primary" shape="circle" icon={<EditOutlined />} onClick={() => this.editModal(itemm)} />
-                <Button type="primary" shape="circle" icon={<CheckOutlined />} style={itemm.isChecked ? { background: 'green', margin: '0px 10px' } : { background: ' gray', margin: '0px 10px' }} onClick={() => this.handleComplete(itemm)} />
+                <Button type="primary" shape="circle" icon={<CheckOutlined />} style={itemm.isChecked ? { background: 'green', margin: '0px 10px' } : { background: ' #1890ff', margin: '0px 10px' }} onClick={() => this.handleComplete(itemm)} />
                 <Popconfirm
                   title="Are you sure to delete this task?"
-                  onConfirm={window.confirm}
-                  onCancel={window.cancel}
+                  onConfirm={this.confirm}
+                  onCancel={this.cancel}
                   okText="Yes"
                   cancelText="No"
                 >
