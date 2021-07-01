@@ -1,6 +1,5 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-
 import Todo from './components/todo';
 import TodoList from './components/todoList';
 
@@ -9,7 +8,17 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      myList: [],
+      myList: localStorage.getItem('myStorage') ? JSON.parse(localStorage.getItem('myStorage')) : [],
+    };
+
+    this.componentDidMount = () => {
+      const { myList } = this.state;
+      localStorage.setItem('myStorage', JSON.stringify(myList));
+    };
+
+    this.componentDidUpdate = () => {
+      const { myList } = this.state;
+      localStorage.setItem('myStorage', JSON.stringify(myList));
     };
 
     this.handleValues = (values) => {
