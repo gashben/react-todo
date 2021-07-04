@@ -1,65 +1,51 @@
 import React from 'react';
 import 'antd/dist/antd.css';
+import { connect } from 'react-redux';
 import Todo from './components/todo';
 import TodoList from './components/todoList';
+import { listTodos, addTodo } from './actions/getMylist';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      myList: localStorage.getItem('myStorage') ? JSON.parse(localStorage.getItem('myStorage')) : [],
-    };
-
-    this.componentDidMount = () => {
-      const { myList } = this.state;
-      localStorage.setItem('myStorage', JSON.stringify(myList));
-    };
-
-    this.componentDidUpdate = () => {
-      const { myList } = this.state;
-      localStorage.setItem('myStorage', JSON.stringify(myList));
-    };
-
     this.handleValues = (values) => {
-      const { myList } = this.state;
-      this.setState({
-        myList: [{
-          ...values,
-          id: Math.floor(Math.random() * (1000 - 1 + 1)) + 1,
-          isChecked: false,
-        },
-        ...myList],
-      });
+      // const { todos } = this.props;
+      const newData = {
+        id: Math.floor(Math.random() * (1000 - 1 + 1)) + 1,
+        isChecked: false,
+        ...values,
+      };
+      // eslint-disable-next-line react/destructuring-assignment
+      this.props.addTodo(newData);
     };
 
     this.handleUpdate = (item) => {
-      const { myList } = this.state;
-      const lastResulte = [...myList].map((object) => {
+      const { todos } = this.props;
+      // eslint-disable-next-line no-unused-vars
+      const lastResulte = [...todos].map((object) => {
         if (object.id === item.id) {
           return item;
         }
         return object;
       });
-      this.setState({ myList: lastResulte });
     };
 
     // delete
     this.handleDelete = (index) => {
-      const { myList } = this.state;
-      myList.splice(index, 1);
-      this.setState({ myList });
+      const { todos } = this.props;
+      todos.splice(index, 1);
     };
   }
 
   render() {
-    const { myList } = this.state;
+    const { todos } = this.props;
     return (
 
       <div style={{ padding: '0px 200px' }}>
         <Todo handleValues={this.handleValues} />
         <TodoList
-          myList={myList}
+          myList={todos}
           handleUpdate={this.handleUpdate}
           handleDelete={this.handleDelete}
         />
@@ -68,4 +54,11 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  todos: state.Todos,
+});
+const mapDispatchToProsp = {
+  listTodos,
+  addTodo,
+};
+export default connect(mapStateToProps, mapDispatchToProsp)(App);
