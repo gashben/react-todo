@@ -5,7 +5,7 @@ import {
 import { DeleteOutlined, CheckOutlined, EditOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import Edit from './edit';
-import { deleteTodo } from '../actions/getMylist';
+import { deleteTodo, handleUpdate } from '../actions/getMylist';
 
 class TodoList extends React.Component {
   constructor(props) {
@@ -27,6 +27,7 @@ class TodoList extends React.Component {
     // complete
 
     this.handleComplete = (item) => {
+      // eslint-disable-next-line no-shadow
       const { handleUpdate } = this.props;
       const newItem = {
         ...item,
@@ -47,13 +48,13 @@ class TodoList extends React.Component {
   }
 
   render() {
-    const { myList, handleUpdate } = this.props;
+    const { todos } = this.props;
     const { isModalVisible, item } = this.state;
     return (
       <div>
         <h1>TODO List</h1>
         <List
-          dataSource={myList}
+          dataSource={todos}
           renderItem={(itemm, index) => (
             <List.Item>
               {itemm.title}
@@ -76,7 +77,6 @@ class TodoList extends React.Component {
                 isModalVisible={isModalVisible}
                 handleCancel={this.handleCancel}
                 item={item}
-                handleUpdate={handleUpdate}
               />
             </List.Item>
           )}
@@ -91,5 +91,6 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProsp = {
   deleteTodo,
+  handleUpdate,
 };
 export default connect(mapStateToProps, mapDispatchToProsp)(TodoList);
