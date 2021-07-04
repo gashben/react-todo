@@ -2,6 +2,8 @@ import React from 'react';
 import {
   Input, Button, Form, Modal,
 } from 'antd';
+import { connect } from 'react-redux';
+import { handleUpdate } from '../actions/getMylist';
 
 class Edit extends React.Component {
   constructor(props) {
@@ -21,10 +23,9 @@ class Edit extends React.Component {
     };
 
     this.onFinish = (values) => {
-      const {
-        handleUpdate, handleCancel,
-      } = this.props;
-      handleUpdate(values);
+      const { handleCancel } = this.props;
+      // eslint-disable-next-line react/destructuring-assignment
+      this.props.handleUpdate(values);
       handleCancel();
     };
   }
@@ -74,4 +75,10 @@ class Edit extends React.Component {
   }
 }
 
-export default Edit;
+const mapStateToProps = (state) => ({
+  todos: state.Todos,
+});
+const mapDispatchToProsp = {
+  handleUpdate,
+};
+export default connect(mapStateToProps, mapDispatchToProsp)(Edit);
