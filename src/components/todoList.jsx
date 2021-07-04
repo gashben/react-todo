@@ -1,9 +1,11 @@
 import React from 'react';
 import {
-  Button, List, Popconfirm, message,
+  Button, List, Popconfirm,
 } from 'antd';
 import { DeleteOutlined, CheckOutlined, EditOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
 import Edit from './edit';
+import { deleteTodo } from '../actions/getMylist';
 
 class TodoList extends React.Component {
   constructor(props) {
@@ -17,18 +19,9 @@ class TodoList extends React.Component {
     // delete
 
     this.deleteMe = (index) => {
-      const { handleDelete } = this.props;
-      handleDelete(index);
-    };
-
-    this.confirm = (e) => {
-      console.log(e);
-      message.success('Click on Yes');
-    };
-
-    this.cancel = (e) => {
-      console.log(e);
-      message.error('Click on No');
+      // eslint-disable-next-line no-shadow
+      const { deleteTodo } = this.props;
+      deleteTodo(index);
     };
 
     // complete
@@ -93,4 +86,10 @@ class TodoList extends React.Component {
   }
 }
 
-export default TodoList;
+const mapStateToProps = (state) => ({
+  todos: state.Todos,
+});
+const mapDispatchToProsp = {
+  deleteTodo,
+};
+export default connect(mapStateToProps, mapDispatchToProsp)(TodoList);

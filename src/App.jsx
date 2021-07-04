@@ -9,17 +9,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleValues = (values) => {
-      // const { todos } = this.props;
-      const newData = {
-        id: Math.floor(Math.random() * (1000 - 1 + 1)) + 1,
-        isChecked: false,
-        ...values,
-      };
-      // eslint-disable-next-line react/destructuring-assignment
-      this.props.addTodo(newData);
-    };
-
     this.handleUpdate = (item) => {
       const { todos } = this.props;
       // eslint-disable-next-line no-unused-vars
@@ -29,12 +18,6 @@ class App extends React.Component {
         }
         return object;
       });
-    };
-
-    // delete
-    this.handleDelete = (index) => {
-      const { todos } = this.props;
-      todos.splice(index, 1);
     };
   }
 

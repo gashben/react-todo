@@ -1,14 +1,22 @@
 import React from 'react';
 import { Input, Button, Form } from 'antd';
+import { connect } from 'react-redux';
+import { addTodo } from '../actions/getMylist';
 
 class Todo extends React.Component {
   constructor(props) {
     super(props);
 
     this.onFinish = (values) => {
-      const { handleValues } = this.props;
+      const newData = {
+        id: Math.floor(Math.random() * (1000 - 1 + 1)) + 1,
+        isChecked: false,
+        ...values,
+      };
+
+      // eslint-disable-next-line react/destructuring-assignment
+      this.props.addTodo(newData);
       this.ref.current.resetFields();
-      handleValues(values);
     };
     this.ref = React.createRef();
   }
@@ -42,4 +50,7 @@ class Todo extends React.Component {
   }
 }
 
-export default Todo;
+const mapDispatchToProsp = {
+  addTodo,
+};
+export default connect(null, mapDispatchToProsp)(Todo);
